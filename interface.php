@@ -1,6 +1,10 @@
 <?php
 
-abstract class Produk{
+interface InfoProduk{
+    public function getInfoProduk();
+}
+
+class Produk{
     public $judul,
             $penulis,
             $penerbit,
@@ -14,8 +18,6 @@ abstract class Produk{
         $this->harga = $harga;
     }
 
-    abstract public function getInfoProduk();
-
     public function getInfo(){
         $str = "{$this->judul} | {$this->getLabel()} (Rp. {$this->harga})";
         return $str;
@@ -26,7 +28,7 @@ abstract class Produk{
     }
 }
 
-class Komik extends Produk{
+class Komik extends Produk implements InfoProduk{
     public $jmlHalaman;
 
     public function __construct( $judul = "judul", $penulis = "penulis", $penerbit = "penerbit", $harga = 0, $jmlHalaman = 0 )
@@ -43,7 +45,7 @@ class Komik extends Produk{
     }
 }
 
-class Game extends Produk{
+class Game extends Produk implements InfoProduk{
     public $jamMain;
 
     public function __construct( $judul = "judul", $penulis = "penulis", $penerbit = "penerbit", $harga = 0, $jamMain = 0)
